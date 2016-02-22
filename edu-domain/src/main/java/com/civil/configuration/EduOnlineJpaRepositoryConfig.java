@@ -1,6 +1,6 @@
 package com.civil.configuration;
 
-import com.civil.domain.CivilDomain;
+import com.civil.domain.EduOnlineDomain;
 import com.jolbox.bonecp.BoneCPDataSource;
 import com.vzs.persistence.jpa.springdatajpa.VzsDataSourcePropertiesHelper;
 import com.vzs.persistence.jpa.springdatajpa.VzsJpaRepositoryFactoryBean;
@@ -22,7 +22,7 @@ import javax.sql.DataSource;
  * Created by byao on 4/21/15.
  */
 @Configuration
-@EnableJpaRepositories(basePackageClasses = { CivilDomain.class } ,
+@EnableJpaRepositories(basePackageClasses = { EduOnlineDomain.class } ,
         entityManagerFactoryRef = "entityManagerFactory",
         repositoryFactoryBeanClass = VzsJpaRepositoryFactoryBean.class,
         transactionManagerRef = "eduOnlineTransactionManager")

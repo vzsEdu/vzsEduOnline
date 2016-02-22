@@ -11,14 +11,9 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class EduOnlineHanldebarsConfig implements HandlebarsConfigurer {
-	@Bean
-	public UserNickNameHelper userNickNameHelper() {
-		return new UserNickNameHelper();
-	}
 
 	@Override
 	public void configureHandlebars(Handlebars handlebars) {
 		handlebars.registerHelper(QiniuCdnHelper.HELPER_NAME, new QiniuCdnHelper());
-		handlebars.registerHelper(UserNickNameHelper.HELPER_NAME, this.userNickNameHelper());
 	}
 }

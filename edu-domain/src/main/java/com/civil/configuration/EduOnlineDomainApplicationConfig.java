@@ -1,6 +1,6 @@
 package com.civil.configuration;
 
-import com.civil.domain.CivilDomain;
+import com.civil.domain.EduOnlineDomain;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.ComponentScan;
@@ -21,8 +21,8 @@ import java.util.concurrent.Executor;
 @Configuration
 @EnableAspectJAutoProxy
 @EnableAsync
-@Import({CivilJpaRepositoryConfig.class})
-@ComponentScan(basePackageClasses = {CivilDomain.class})
+@Import({EduOnlineJpaRepositoryConfig.class})
+@ComponentScan(basePackageClasses = {EduOnlineDomain.class})
 public class EduOnlineDomainApplicationConfig implements TransactionManagementConfigurer, AsyncConfigurer {
 
     @Qualifier("eduOnlineTransactionManager")
