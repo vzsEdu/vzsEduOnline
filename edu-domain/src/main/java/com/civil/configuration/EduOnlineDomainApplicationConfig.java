@@ -23,7 +23,7 @@ import java.util.concurrent.Executor;
 @EnableAsync
 @Import({CivilJpaRepositoryConfig.class})
 @ComponentScan(basePackageClasses = {CivilDomain.class})
-public class CivilDomainApplicationConfig implements TransactionManagementConfigurer, AsyncConfigurer {
+public class EduOnlineDomainApplicationConfig implements TransactionManagementConfigurer, AsyncConfigurer {
 
     @Qualifier("civilTransactionManager")
     @Autowired
