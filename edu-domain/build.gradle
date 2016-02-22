@@ -9,7 +9,7 @@ task wrap(type: Wrapper) {
 repositories {
     mavenCentral()
     maven {
-        url 'https://raw.github.com/vzs97/vzs-infratructure/master/release/'
+        url 'https://raw.github.com/vzs97/vzs-infratructure/eduOnline/eduOnline/'
     }
 }
 
@@ -18,7 +18,7 @@ dependencies {
 
     testCompile group: 'junit', name: 'junit', version: '4.11'
     compile (
-            'com.vzs:framework:1.0.18',
+            'com.vzs:framework:1.0.0',
             'org.springframework.data:spring-data-jpa:1.6.4.RELEASE',
             'org.hibernate:hibernate-entitymanager:4.3.6.Final',
             'com.mysema.querydsl:querydsl-core:3.4.2',
