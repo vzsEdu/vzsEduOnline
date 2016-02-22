@@ -1,0 +1,40 @@
+apply plugin:"java"
+apply plugin: 'flyway'
+apply plugin: "jpa-schema-generate"
+
+task wrap(type: Wrapper) {
+    gradleVersion = '1.8'
+    scriptFile = 'g'
+}
+repositories {
+    mavenCentral()
+    maven {
+        url 'https://raw.github.com/vzs97/vzs-infratructure/master/release/'
+    }
+}
+
+
+dependencies {
+
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+    compile (
+            'com.vzs:framework:1.0.18',
+            'org.springframework.data:spring-data-jpa:1.6.4.RELEASE',
+            'org.hibernate:hibernate-entitymanager:4.3.6.Final',
+            'com.mysema.querydsl:querydsl-core:3.4.2',
+            'com.jolbox:bonecp:0.8.0.RELEASE',
+            'org.springframework:spring-orm:4.0.6.RELEASE',
+            'org.projectlombok:lombok:1.14.4',
+            'log4j:log4j:1.2.17',
+            'com.mysema.querydsl:querydsl-jpa:3.4.2',
+            'mysql:mysql-connector-java:5.1.25'
+    )
+
+
+
+}
+
+
+apply from: "jpaGradle.gradle"
+apply from: "flywayGradle.gradle"
+apply from: "jpaSchemaGenerateGradle.gradle"

@@ -1,0 +1,23 @@
+<nav class="navbar navbar-default navbar-static-top">
+    <div class="container">
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <!--<li><a href="/myCenter" class="{{default logoutClass ""}}">{{i18n "welcome"}} {{loginUserNickName}}</a></li>-->
+                <li class="dropdown {{default logoutClass ""}}">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{i18n "welcome"}} {{loginUserNickName}} <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/myCenter">{{i18n "mycenter.dropdown.mycenter"}}</a></li>
+                        <li><a href="/project/list/projects">{{i18n "menu.my.project"}}</a></li>
+                        <li><a href="/project/list/myApplied/projects">{{i18n "menu.my.application"}}</a></li>
+                        <li><a href="/application-center/own/lists">{{i18n "mycenter.dropdown..myapp"}}</a></li>
+                        <li><a href="/password/changePassword">{{i18n "change.password"}}</a></li>
+                    </ul>
+                </li>
+                <li><a href="/auth/loginRequest" class="{{default loginClass ""}}">{{i18n "signin"}}<!-- <span class="sr-only">(current)</span>--></a></li>
+                <li><a href="/signup/personal" class="{{default loginClass ""}}">{{i18n "signup"}}</a></li>
+                <li><a href="/auth/logout" class="{{default logoutClass ""}}">{{i18n "logout"}}</a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</nav>
+

@@ -1,0 +1,63 @@
+{{#partial "core"}}
+
+
+    {{assetStyle "resources/js/lib/jquery/css/fileinput.min.css"}}
+    {{assetStyle "resources/css/company.css"}}
+    <!--{{assetStyle "resources/js/lib/docs/docs.min.css"}}-->
+
+    {{assetScript "/resources/js/lib/jquery/vendor/jquery.ui.widget.js"}}
+    {{assetScript "/resources/js/lib/jquery/fileinput/fileinput.min.js"}}
+    <!--{{assetScript "/resources/js/lib/docs/docs.min.js"}}-->
+    <table id="projectHistoryList" data-toggle="table" data-url="/company/projectHistory/list/my/projectHistorys"
+           data-card-view="true">
+        <thead>
+        <tr dbl-click-row.bs.table="alert();">
+            <th data-field="projectName">{{i18n "project.name"}}</th>
+            <th data-field="description" data-field="city">{{i18n "project.detail"}}</th>
+            <th data-field="operate" data-formatter="operateFormatter" data-events="operateEvents">{{i18n "project.operate"}}</th>
+        </tr>
+        </thead>
+    </table>
+    <form action="/company/projectHistory/create/projectHistory" method="get">
+        <div>
+            <button class="btn btn-primary" type="submit" id="create_btn">
+                {{i18n "create"}}+
+            </button>
+        </div>
+    </form>
+{{/partial}}
+{{#partial "script"}}
+    <script type="text/javascript">
+        $().ready(function () {
+            $('#projectHistoryList').bootstrapTable({}).on('dbl-click-row.bs.table', function (e, row, $element) {
+                window.location = '/company/projectHistory/view/projectHistory/' + row.projectHistoryId;
+            });
+            $('#mycenter_company_project_menu').addClass("active");
+
+        });
+
+
+        function operateFormatter(value, row, index) {
+            return [
+                '<a class="edit ml10" href="javascript:void(0)" title="Edit">',
+                '<i class="glyphicon glyphicon-edit"></i>',
+                '</a>&nbsp',
+                '<a class="remove ml10" href="javascript:void(0)" title="Remove">',
+                '<i class="glyphicon glyphicon-remove"></i>',
+                '</a>&nbsp',
+            ].join('');
+        }
+
+        window.operateEvents = {
+            'click .edit': function (e, value, row, index) {
+                window.location = '/company/projectHistory/view/projectHistory/' + row.projectHistoryId;
+            },
+            'click .remove': function (e, value, row, index) {
+                window.location = '/company/projectHistory/remove/projectHistory/' + row.projectHistoryId;
+            }
+        };
+
+    </script>
+{{/partial}}
+
+{{> company/edit_menu }}

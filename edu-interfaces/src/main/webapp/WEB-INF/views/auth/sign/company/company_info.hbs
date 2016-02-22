@@ -1,0 +1,34 @@
+{{#partial "link"}}
+
+    <link href="../../../resources/css/company_info.css" rel="stylesheet">
+{{/partial}}
+
+{{#partial "header"}}
+    {{> layouts/frame/base_header }}
+{{/partial}}
+
+
+{{#partial "body"}}
+
+    {{assetScript "/resources/js/lib/business/signup.js"}}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3 col-md-2 sidebar">
+                <ul class="nav nav-sidebar">
+                    <li class="active"><a href="#">{{i18n "company.account.management"}} <span class="sr-only">(current)</span></a></li>
+                    <li><a href="#">{{i18n "company.account.management"}}</a></li>
+                </ul>
+            </div>
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+
+
+
+            </div>
+
+        </div>
+    </div>
+
+{{/partial}}
+
+
+{{> layouts/frame/base_frame }}

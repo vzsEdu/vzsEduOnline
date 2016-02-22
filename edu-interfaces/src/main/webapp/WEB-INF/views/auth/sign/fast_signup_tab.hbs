@@ -1,0 +1,36 @@
+<div class="container form-group form-signup">
+
+        <div id="rootwizard" class="tabbable tabs-left">
+            <ul>
+                <li><a href="#tab1" data-toggle="tab" ng-click="changeTab(false);">{{i18n "personal_signup"}}</a>
+                </li>
+                <li><a href="#tab2" data-toggle="tab" ng-click="changeTab(true);">{{i18n "company_signup"}}</a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="tab1"  >
+                    <form name="theForm" action="/signup/personal/fastSignUp" method="post">
+                        {{> auth/sign/fast_signup }}
+                    </form>
+                </div>
+                <div class="tab-pane" id="tab2">
+                    <form name="theForm" action="/signup/company/fastSignUp" method="post">
+                        {{> auth/sign/fast_signup }}
+                    </form>
+                </div>
+            </div>
+        </div>
+</div>
+
+{{#partial "script"}}
+    <script type="text/javascript">
+
+        $().ready(function () {
+            if ($("#alertFlag").val() == 'Y') {
+                $(".alert").alert();
+            } else {
+                $(".alert").alert('close');
+            }
+        });
+
+    </script>
+{{/partial}}

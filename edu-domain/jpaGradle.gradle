@@ -1,0 +1,129 @@
+/*
+depends on "java" plugin
+
+apply from: jpaGradle
+ */
+
+ext {
+    jpaMetamodelGeneratedDir = 'src/generated/java-jpa'
+    queryDslMetamodelGeneratedDir = 'src/generated/java-querydsl'
+}
+
+configurations {
+    jpaMetamodelGen {
+        extendsFrom compile
+    }
+
+    queryDslMetamodelGen {
+        extendsFrom compile
+    }
+}
+
+dependencies {
+    jpaMetamodelGen 'org.hibernate:hibernate-jpamodelgen:1.3.0.Final'
+    queryDslMetamodelGen 'com.mysema.querydsl:querydsl-apt:3.2.4'
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir jpaMetamodelGeneratedDir
+            srcDir queryDslMetamodelGeneratedDir
+        }
+    }
+}
+
+task generateJpaMetamodel(type: JavaCompile) {
+    def targetDir = file(jpaMetamodelGeneratedDir)
+    def compiledDestinationDir = "${buildDir}/tmp/apt-jpa"
+    doFirst {
+        delete(targetDir)
+        targetDir.mkdirs()
+    }
+
+    classpath = configurations.jpaMetamodelGen
+    source = sourceSets.main.java
+    destinationDir = file(compiledDestinationDir)
+
+    options.define(
+            compilerArgs: [
+                    '-proc:only',
+                    '-encoding', 'utf-8',
+                    '-s', targetDir.absolutePath,
+                    '-processor', 'org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor'
+            ]
+    )
+
+    outputs.upToDateWhen { false }
+}
+
+task generateQueryDslMetamodel(type: JavaCompile) {
+    def targetDir = file(queryDslMetamodelGeneratedDir)
+    def compiledDestinationDir = "${buildDir}/tmp/apt-queryDsl"
+    doFirst {
+        delete(targetDir)
+        targetDir.mkdirs()
+    }
+
+    classpath = configurations.queryDslMetamodelGen
+    source = sourceSets.main.java
+    destinationDir = file(compiledDestinationDir)
+
+    options.define(
+            compilerArgs: [
+                    '-proc:only',
+                    '-encoding', 'utf-8',
+                    '-s', targetDir.absolutePath,
+                    '-processor', 'com.mysema.query.apt.jpa.JPAAnnotationProcessor'
+            ]
+    )
+
+    outputs.upToDateWhen { false }
+}
+
+task cleanGenerateSources {
+    doLast {
+        delete(file(jpaMetamodelGeneratedDir))
+        delete(file(queryDslMetamodelGeneratedDir))
+    }
+}
+
+task generateSources {
+    doFirst {
+        println "# Generating sources..."
+    }
+}
+compileJava.dependsOn generateSources
+generateSources.dependsOn cleanGenerateSources, generateQueryDslMetamodel, generateJpaMetamodel
+
+task jpaCacheEvictAll {
+    description = 'JPA Cache Evict all.'
+    doLast {
+
+        if (!project.hasProperty('cacheEvict.class')) {
+            throw new IllegalArgumentException('"cacheEvict.class" property required.')
+        }
+        if (!project.hasProperty('cacheEvict.profile')) {
+            throw new IllegalArgumentException('"cacheEvict.profile" property required.')
+        }
+        if (!project.hasProperty('cacheEvict.emf')) {
+            throw new IllegalArgumentException('"cacheEvict.emf" property required.')
+        }
+
+        project.javaexec {
+            main = "com.vzs.persistence.jpa.springdatajpa.JpaCacheEvictor"
+            classpath = sourceSets.main.runtimeClasspath
+
+            if (project.hasProperty('configOverride')) {
+                systemProperty 'config.override', configOverride
+            }
+
+            if (project.hasProperty('vzs.hibernatememcached.custom.key.prefix')) {
+                systemProperty 'vzs.hibernatememcached.custom.key.prefix', project.properties['vzs.hibernatememcached.custom.key.prefix']
+            }
+
+            args project.properties['cacheEvict.class'], project.properties['cacheEvict.profile'], project.properties['cacheEvict.emf']
+        }
+
+    }
+}

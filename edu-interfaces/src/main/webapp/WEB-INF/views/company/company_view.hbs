@@ -1,0 +1,268 @@
+{{#partial "link"}}
+
+    <link href="../../resources/css/company.css" rel="stylesheet">
+{{/partial}}
+
+{{#partial "core"}}
+
+
+
+<div class="row company-view-cls">
+    <form style="width: 110%"  action="/company/saveCompany" id="companyForm" name="companyForm"  method="post"  ng-app="companyApp"
+          ng-controller="companyCtrl">
+        <input type="hidden" name = "companyId" value="{{default company.companyId}}"/>
+        <input type="hidden" name = "verified" value="{{default company.verified}}"/>
+
+        <!--companyName-->
+        <div class="row placeholders" >
+            <div class="col-md-2"><label> {{i18n "company.name"}}</label></div>
+            <div class="col-md-6">
+                <input type="text" name="companyName" id="companyName" class="form-control"
+                       maxlength="255" ng-required="true" ng-model="company.companyName"required autofocus>
+            </div>
+        </div>
+        <div class="row placeholders">
+            <div class="col-md-2"></div>
+            <div class="col-md-6">
+                <div class="messages" ng-messages="companyForm.companyName.$error" ng-hide="companyForm.companyName.$pristine">
+                    <div ng-message="required">must input company name</div>
+                </div>
+            </div>
+        </div>
+        <!--industryInvolved-->
+       <div class="row placeholders">
+            <div class="col-md-2"><label>{{i18n "company.industry"}}</label></div>
+            <div class="col-md-6">
+                <input type="text" name="industryInvolved" id="industryInvolved" class="form-control" value=
+                        ng-required="true" ng-model="company.industryInvolved" required autofocus>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-6">
+                <div class="messages" ng-messages="companyForm.industryInvolved.$error" ng-hide="companyForm.industryInvolved.$pristine">
+                    <div ng-message="required">must input industryInvolved name</div>
+                </div>
+            </div>
+        </div>
+        <!--province-->
+       <div class="row" id="priovincesCity">
+            <div class="col-md-2"><label > {{i18n "company.location"}}</label></div>
+            <div class="col-md-2">
+                <select id="province" name="province" class="form-control prov" ng-required="true" ng-model="company.province" required
+                        autofocus></select>
+            </div>
+            <div class="col-md-2">
+                <select id="city" name="city" class="form-control city" ng-required="true" ng-model="company.city" required
+                        autofocus></select>
+            </div>
+            <div class="col-md-2">
+                <select id="dist" name="dist" class="form-control dist" ng-model="company.dist"
+                        autofocus></select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-2">
+                <div class="messages" ng-messages="companyForm.province.$error" ng-hide="companyForm.province.$pristine">
+                    <div ng-message="required">must input province name</div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="messages" ng-messages="companyForm.city.$error" ng-hide="companyForm.city.$pristine">
+                    <div ng-message="required">must input city name</div>
+                </div>
+            </div>
+        </div>
+        <!--company.address-->
+        <div class="row" >
+            <div class="col-md-2"><label>{{i18n "company.address"}}</label></div>
+            <div class="col-md-6">
+                <input type="text" name="address" id="address" class="form-control"
+                        maxlength="300" ng-maxlength="300" ng-required="true" ng-model="company.address" required autofocus>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-6">
+                <div class="messages" ng-messages="companyForm.address.$error" ng-hide="companyForm.address.$pristine">
+                    <div ng-message="required">must input address</div>
+                    <div ng-message="maxlength">The address max length is 300 digits</div>
+                </div>
+            </div>
+        </div>
+
+
+        <!--company.contactor-->
+        <div class="row">
+            <div class="col-md-2"><label>{{i18n "contactor"}}</label></div>
+            <div class="col-md-6">
+                <input type="text" name="contactor" id="contactor" class="form-control"
+                       maxlength="50" ng-maxlength="50" ng-required="true" ng-model="company.contactor" required autofocus>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-6">
+                <div class="messages" ng-messages="companyForm.contactor.$error" ng-hide="companyForm.contactor.$pristine">
+                    <div ng-message="required">must input contactor</div>
+                </div>
+            </div>
+        </div>
+
+        <!--company.contactNo-->
+        <div class="row">
+            <div class="col-md-2"><label>{{i18n "contact.number"}}</label></div>
+            <div class="col-md-6">
+                <input type="text" name="contactNo" id="contactNo" class="form-control"
+                       maxlength="20" ng-maxlength="20" ng-required="true" ng-model="company.contactNo" required autofocus>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-6">
+                <div class="messages" ng-messages="companyForm.contactNo.$error" ng-hide="companyForm.contactNo.$pristine">
+                    <div ng-message="required">must input contact number</div>
+                </div>
+            </div>
+        </div>
+
+        <!--company.email-->
+        <div class="row">
+            <div class="col-md-2"><label>{{i18n "company.email"}}</label></div>
+            <div class="col-md-6">
+                <input type="text" name="email" id="email" class="form-control"
+                       maxlength="20" ng-maxlength="20" ng-required="true" ng-model="company.email" required autofocus>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-6">
+                <div class="messages" ng-messages="companyForm.email.$error" ng-hide="companyForm.email.$pristine">
+                    <div ng-message="required">must input email</div>
+                    <div ng-message="email">invalid email</div>
+                </div>
+            </div>
+        </div>
+
+
+        <!--company.fax-->
+        <div class="row">
+            <div class="col-md-2"><label>{{i18n "fax"}}</label></div>
+            <div class="col-md-6">
+                <input type="text" name="fax" id="fax" class="form-control" maxlength="20" ng-maxlength="20" ng-model="company.fax" autofocus>
+            </div>
+        </div>
+
+
+        <!--company.qualification-->
+     <div class="row">
+            <div class="col-md-2"><label>{{i18n "qualification.fillup"}}</label></div>
+            <div class="col-md-6">
+                <textarea rows="3" cols="30" name="qualification" id="qualification" class="form-control"
+                          maxlength="500" ng-required="true" ng-model="company.qualification" required
+                          autofocus ></textarea>
+                <textarea id="qualificationTemp" name="qualificationTemp" style="display: none">{{default company.qualification ''}}</textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-6">
+                <div class="messages" ng-messages="companyForm.qualification.$error" ng-hide="companyForm.qualification.$pristine">
+                    <div ng-message="required">must input qualification</div>
+                </div>
+            </div>
+        </div>
+
+        <!--company.selfIntroduction-->
+        <div class="row">
+            <div class="col-md-2"><label>{{i18n "self.introduction"}}</label></div>
+            <div class="col-md-6">
+                <textarea rows="3" cols="30" name="selfIntroduction" id="selfIntroduction" class="form-control"
+                          maxlength="500" ng-required="true" ng-model="company.selfIntroduction" required
+                          autofocus ></textarea>
+                <textarea id="selfIntroductionTemp" name="selfIntroductionTemp" style="display: none">{{default company.selfIntroduction ''}}</textarea>
+            </div>
+        </div>
+
+        <!--company.technicalSupport-->
+        <div class="row">
+            <div class="col-md-2"><label>{{i18n "technical.support"}}</label></div>
+            <div class="col-md-6">
+                <textarea rows="3" cols="30" name="technicalSupport" id="technicalSupport" class="form-control"
+                          maxlength="500" ng-required="true" ng-model="company.technicalSupport" required
+                          autofocus ></textarea>
+                <textarea id="technicalSupportTemp" name="technicalSupportTemp" style="display: none">{{default company.technicalSupport ''}}</textarea>
+            </div>
+        </div>
+
+
+        <!--button-->
+        <div class="row">
+            <div class="col-md-5"></div>
+            <div class="col-md-1">
+                <button class="btn btn-primary" type="submit" id="submit_btn"
+                        ng-disabled="companyForm.$invalid || companyForm.$pristine">
+                    {{i18n "save"}}
+                </button>
+            </div>
+            <div class="col-md-1">
+                <button class="btn btn-primary" type="button" onclick="cancel()">
+                    {{i18n "cancel"}}
+                </button>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+
+    </form>
+</div>
+{{/partial}}
+{{#partial "script"}}
+    {{assetScript "/resources/js/lib/provincecity/jquery.cityselect.js"}}
+    <script type="text/javascript">
+
+        function cancel() {
+            window.location = '/company/list/companys';
+        }
+        (function (angular, $, _) {
+            var app = angular.module("companyApp", ["app","ngMessages"]);
+
+            app.controller("companyCtrl", ["$scope", function ($scope) {
+                $scope.company = {  'companyName':"{{default company.companyName ''}}",
+                                    'industryInvolved':"{{default company.industryInvolved ''}}",
+                                    'province':"{{default company.province ''}}",
+                                    'city':"{{default company.city ''}}",
+                                    'dist':"{{default company.dist ''}}",
+                                    'address':"{{default company.address ''}}",
+                                    'email':"{{default company.email ''}}",
+                                    'contactor':"{{default company.contactor ''}}",
+                                    'contactNo':"{{default company.contactNo ''}}",
+                                    'fax':"{{default company.fax ''}}",
+                                    'qualification':$("#qualificationTemp").val(),
+                                    'selfIntroduction':$("#selfIntroductionTemp").val(),
+                                    'technicalSupport':$("#technicalSupportTemp").val(),
+                                    'verified':"{{default company.verified ''}}"
+                                };
+
+
+            }]);
+        }(window.angular, window.jQuery, window._));
+
+        $().ready(function(){
+            $('#mycenter_company_menu').addClass("active");
+
+            $("#priovincesCity").citySelect({
+                prov:"{{default company.province ''}}",
+                city:"{{default company.city ''}}",
+                dist:"{{default company.dist ''}}",
+                nodata:"none",
+                required:false
+            });
+
+        });
+
+
+    </script>
+{{/partial}}
+
+{{> company/edit_menu }}

@@ -1,0 +1,113 @@
+{{#partial "core"}}
+
+    {{assetStyle "resources/css/person.css"}}
+
+
+    <div class="row person-view-cls">
+        <form style="width: 110%" action="/person/savePerson" id="personForm" name="personForm" method="post"
+              ng-app="personApp"
+              ng-controller="personCtrl">
+            <input type="hidden" name="personId" value="{{default person.personId}}"/>
+            <input type="hidden" name = "verified" value="{{default person.verified}}"/>
+            <!--personName-->
+            <div class="row placeholders">
+                <div class="col-md-2"><label> {{i18n "person.name"}}</label></div>
+                <div class="col-md-6">{{person.personName}}</div>
+            </div>
+            <!--enterprise-->
+            <div class="row placeholders">
+                <div class="col-md-2"><label>{{i18n "person.enterprise"}}</label></div>
+                <div class="col-md-6">{{person.enterprise}}</div>
+            </div>
+            <!--industryInvolved / location-->
+            <div class="row" id="priovincesCity">
+                <div class="col-md-2"><label> {{i18n "person.location"}}</label></div>
+                <div class="col-md-2">{{person.location}}</div>
+                <div class="col-md-2"><label> {{i18n "person.industryInvolved"}}</label></div>
+                <div class="col-md-2">{{person.industryInvolved}}</div>
+            </div>
+            <!--person.workExperience-->
+            <div class="row">
+                <div class="col-md-2"><label>{{i18n "workExperience"}}</label></div>
+                <div class="col-md-6"><p>{{person.workExperience}}</p></div>
+            </div>
+
+            <!--person.educationBackground-->
+            <div class="row">
+                <div class="col-md-2"><label>{{i18n "educationBackground"}}</label></div>
+                <div class="col-md-6"><p>{{person.educationBackground}}</p></div>
+            </div>
+
+            <!--person.certificateSkill-->
+            <div class="row">
+                <div class="col-md-2"><label>{{i18n "certificateSkill"}}</label></div>
+                <div class="col-md-6"><p>{{person.certificateSkill}}</p></div>
+            </div>
+
+            <!--person.recommendLetter-->
+            <div class="row">
+                <div class="col-md-2"><label>{{i18n "recommendLetter"}}</label></div>
+                <div class="col-md-6"><p>{{person.recommendLetter}}</p></div>
+            </div>
+
+            <!--person.blackboards-->
+            <table id="personBlackboardListReadonly" data-toggle="table" data-url="/person/blackboard/list/personBlackboardsByPerson/{{person.personId}}"
+                   data-card-view="true">
+                <thead>
+                <tr>
+                    <th data-field="blackboard"><label>{{i18n "blackboard"}}</label></th>
+                </tr>
+                </thead>
+            </table>
+
+            
+            <!--button-->
+            <div class="row">
+                <div class="col-md-10"></div>
+                <div class="col-md-1">
+                    <button class="btn btn-primary" type="button" onclick="cancel()">
+                        {{i18n "button.return"}}
+                    </button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+{{/partial}}
+{{#partial "script"}}
+    {{assetScript "/resources/js/lib/provincecity/jquery.cityselect.js"}}
+    <script type="text/javascript">
+
+        function cancel() {
+            window.location = '/person/list/persons';
+        }
+        (function (angular, $, _) {
+            var app = angular.module("personApp", ["app", "ngMessages"]);
+
+            app.controller("personCtrl", ["$scope", function ($scope) {
+                $scope.person = {
+                    'personName': "{{default person.personName ''}}",
+                    'industryInvolved': "{{default person.industryInvolved ''}}",
+                    'location': "{{default person.location ''}}",
+                    'enterprise': "{{default person.enterprise ''}}",
+                    'workExperience': $("#workExperienceTemp").val(),
+                    'educationBackground': $("#educationBackgroundTemp").val(),
+                    'certificateSkill': $("#certificateSkillTemp").val(),
+                    'recommendLetter': $("#recommendLetterTemp").val(),
+                    'verified':"{{default company.verified ''}}"
+
+                };
+
+
+            }]);
+        }(window.angular, window.jQuery, window._));
+
+        $().ready(function () {
+            $('#company_person_menu_person').addClass("active");
+        });
+
+
+    </script>
+{{/partial}}
+
+{{> company/company_person_menu }}

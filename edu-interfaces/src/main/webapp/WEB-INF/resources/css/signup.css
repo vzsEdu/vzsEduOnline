@@ -1,0 +1,104 @@
+body {
+    padding-bottom: 20px;
+}
+
+.loginpage-bg {
+    height: 800px;
+    width: 100%;
+    position: absolute;
+    background-position: center center;
+    background-size:cover;
+    padding-top: 70px;
+}
+#loginpage {
+    background-image: url(../images/signup.jpg);
+}
+
+.form-signup {
+    max-width: 630px;
+    padding: 60px;
+    background-color: #f7f7f9;
+    margin: 0 auto;
+}
+.form-signup .form-signup-heading,
+.form-signup .checkbox {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+/*.form-signup .checkbox {
+    font-weight: normal;
+}*/
+
+.form-signup label{
+    padding-top: 7px;
+    margin-top: 5px;
+}
+
+.form-signup a{
+    margin-left: 1px;
+    text-decoration:underline;
+}
+
+.form-signup .signup_now {
+    margin-top: 15px;
+    text-align: right;
+}
+
+.form-signup .form-control {
+    position: relative;
+    height: auto;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 9px;
+    font-size: 16px;
+}
+.form-signup .form-control:focus {
+    z-index: 2;
+}
+
+.form-signup input {
+    width: 300px;
+    height: 20px;
+    margin-bottom: 15px;
+    margin-top: 5px;
+}
+
+.form-signup #submit_btn {
+    width: 300px;
+    height: 40px;
+}
+
+.messages {
+    margin-top: -12px;
+    margin-bottom: 12px;
+}
+
+
+/*.form-signup input[type="email"] {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+.form-signup input[type="password"] {
+    margin-bottom: -1px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}*/
+
+.left-float {
+    float: left;
+}
+
+#verifyCode {
+    display: auto;
+    height: 40px;
+    width: 80%;
+    padding: 10px;
+}
+
+#verifyImg {
+    /*padding: 1px;*/
+    height: 38px;
+    width: 50%;
+}

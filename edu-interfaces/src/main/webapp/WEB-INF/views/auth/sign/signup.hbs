@@ -1,0 +1,25 @@
+{{#partial "link"}}
+
+    <!--<link href="../../../resources/css/bwizard.css" rel="stylesheet">-->
+    <link href="../../../resources/css/signup.css" rel="stylesheet">
+{{/partial}}
+
+{{#partial "header"}}
+    {{> layouts/frame/sign_header }}
+
+{{/partial}}
+
+
+
+{{#partial "body"}}
+
+    {{assetScript "/resources/js/lib/business/signup.js"}}
+    <div class="loginpage-bg" id="loginpage" ng-app="signupApp" ng-controller="signupCtrl">
+        {{> auth/sign/fast_signup_tab }}
+    </div>
+{{/partial}}
+
+
+
+
+{{> layouts/frame/base_frame }}

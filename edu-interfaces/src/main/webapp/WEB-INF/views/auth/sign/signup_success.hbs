@@ -1,0 +1,23 @@
+{{#partial "link"}}
+
+    <!--<link href="../../../resources/css/bwizard.css" rel="stylesheet">-->
+    <link href="../../../resources/css/signup.css" rel="stylesheet">
+{{/partial}}
+
+{{#partial "header"}}
+    {{> layouts/frame/sign_header }}
+
+{{/partial}}
+
+
+
+{{#partial "body"}}
+    <div class="loginpage-bg" id="loginpage">
+        <div class="form-signup">
+            <p>{{i18n "info.email.activation"}}<a href="/auth/loginRequest">{{i18n "signin"}}</a></p>
+        </div>
+    </div>
+{{/partial}}
+
+
+{{> layouts/frame/base_frame }}

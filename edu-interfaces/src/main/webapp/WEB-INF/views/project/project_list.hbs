@@ -1,0 +1,308 @@
+{{#partial "core"}}
+
+    {{assetScript "/resources/js/lib/jquery/jquery.bootstrap.wizard.min.js"}}
+    {{assetScript "/resources/bootstrap/dialog/js/bootstrap-dialog.min.js"}}
+
+    {{assetStyle "resources/bootstrap/dialog/css/bootstrap-dialog.min.css"}}
+
+
+<h1 align="center" id="pageHeaderTitle">Default</h1>
+
+<table id="projectList" data-toggle="table" data-url="/project/list/my/projects?projectFunctionFlagEnum={{default projectFunctionFlagEnum ''}}"
+       data-card-view="true"
+data-pagination="true"
+       data-search="true"
+       data-show-toggle="true" data-select-item-name="toolbar1">
+    <thead>
+    <tr>
+        <th data-field="projectName">{{i18n "project.name"}}</th>
+        <th data-formatter="locationFormatter">{{i18n "project.location"}}</th>
+        <th data-field="operate" data-formatter="operateFormatter" data-events="operateEvents">{{i18n "project.operate"}}</th>
+    </tr>
+    </thead>
+</table>
+{{/partial}}
+{{#partial "script"}}
+<script type="text/javascript">
+    $().ready(function(){
+
+        var headTitle = "";
+        if ("{{default projectFunctionFlagEnum ''}}" == "PROJECT_TO_BE_APPROVED") {
+            headTitle = '{{i18n "project.approve.page.title"}}';
+            $('#create_project_li').addClass('active');
+
+            $('#list_other_project_side_li').addClass('active');
+            $("#create_application_side_div").removeClass('hidden');
+
+        } else if ("{{default projectFunctionFlagEnum ''}}" == "PROJECT_PUBLISHED") {
+            headTitle = '{{i18n "project.publish.page.titile"}}';
+            $('#list_project_li').addClass('active');
+
+            $("#list_other_project_side_li").addClass('active');
+            $("#create_application_side_div").removeClass('hidden');
+
+        }else if ("{{default projectFunctionFlagEnum ''}}" == "PROJECT_MY_APPLIED") {
+            headTitle = '{{i18n "project.myapplied.page.title"}}';
+
+            $('#list_project_li').addClass('active');
+            $("#list_my_application_side_li").addClass('active');
+            $("#create_application_side_div").removeClass('hidden');
+
+
+        }else{ //my project
+            headTitle = '{{i18n "project.project.page.title"}}';
+            $('#create_project_li').addClass('active');
+
+            $('#list_my_project_side_li').addClass('active');
+            $("#create_project_side_div").removeClass('hidden');
+        }
+        $("#pageHeaderTitle").html(headTitle);
+
+
+        $('#projectList').bootstrapTable({
+
+        }).on('dbl-click-row.bs.table', function (e, row, $element) {
+            window.location = '/project/view/project/' + row.projectId;
+        });
+
+    });
+    function locationFormatter(value, row) {
+        return row.province + " " + row.city;
+    }
+
+    function myProjectList() {
+        return [
+            '<a class="edit ml10" href="javascript:void(0)" title="Edit">',
+            '<i class="glyphicon glyphicon-edit"></i>',
+            '</a>&nbsp',
+            '<a class="remove ml10" href="javascript:void(0)" title="Remove">',
+            '<i class="glyphicon glyphicon-remove"></i>',
+            '</a>'
+        ].join('');
+    }
+
+    /**
+     * &nbsp',
+     '<a class="globe ml10" href="javascript:void(0)" title="Apply">',
+     '<i class="glyphicon glyphicon-globe"></i>',
+     '</a>'
+     */
+
+
+    function publishedProjectList() {
+        return [
+            '<a class="user ml10" href="javascript:void(0)" title="Apply">',
+            '<i class="glyphicon glyphicon-user"></i>',
+            '</a>'
+        ].join('');
+    }
+
+    function toBeApproveProjectList(row) {
+        if (row.projectApplicationDisplayDto.projectApplicationStatus == "APPLY_ACCEPTED") {
+            return [
+                '<a class="ok ml10" href="javascript:void(0)" title="tag">',
+                '<i class="glyphicon glyphicon-ok"></i>',
+                '</a>'
+            ].join('');
+        } else if (row.projectApplicationDisplayDto.projectApplicationStatus == "APPLY_REFUSED") {
+            return [
+                '<a class="refuse ml10" href="javascript:void(0)" title="tag">',
+                '<i class="glyphicon glyphicon-remove-sign"></i>',
+                '</a>'
+            ].join('');
+        }
+        return [
+            '<a class="tag ml10" href="javascript:void(0)" title="tag">',
+            '<i class="glyphicon glyphicon-tag"></i>',
+            '</a>'
+        ].join('');
+    }
+
+    function approveFunction(e, value, row, index) {
+        $.ajax({
+            type: "POST",
+            url: "/project-approve/approve/projects/" + row.projectId,
+            error: function(data){
+                showDialog(row, "apply error");
+            },
+            success: function(data){
+                if (data) {
+                    showDialog(row, '{{i18n "project.approve.approveSucessfully"}}');
+                } else {
+                    showDialog(row, "{{i18n 'project.approve.approveError'}}");
+                }
+            }
+        })
+    }
+
+    function operateFormatter(value, row, index) {
+        if  ("{{default projectFunctionFlagEnum ''}}" == "PROJECT_TO_BE_APPROVED") {
+            return toBeApproveProjectList(row);
+        }
+        if  ("{{default projectFunctionFlagEnum ''}}" == "PROJECT_PUBLISHED")  {
+            return publishedProjectList();
+        }
+        return myProjectList();
+    }
+
+    window.operateEvents = {
+        'click .edit': function (e, value, row, index) {
+            window.location = '/project/view/project/' + row.projectId;
+        },
+        'click .remove': function (e, value, row, index) {
+            window.location = '/project/remove/project/' + row.projectId;
+        },
+        'click .globe': function (e, value, row, index) {
+            findProjectComment(e, value, row, index);
+        },
+        'click .user': function (e, value, row, index) {
+            findProjectComment(e, value, row, index);
+        },
+        'click .tag': function (e, value, row, index) {
+            BootstrapDialog.confirm('{{i18n "project.approve.confirmApprove"}}', function(result){
+                if(result) {
+                    approveFunction(e, value, row, index);
+                }
+            });
+
+        },
+    };
+
+    function applyProject(e, value, row, index) {
+        alert("xxx");
+    }
+
+    function findProjectComment(e, value, row, index) {
+        $.ajax({
+            type: "POST",
+            url: "/project-application/apply/projects/" + row.projectId + "/project-application",
+            error: function(data){
+                alert("Error");
+            },
+            success: function(data){
+                var comment = "";
+                if (data.comment) {
+                    comment = data.comment;
+                }
+                var isEditable = data.isEditable;
+                var isCancelable = data.cancelable;
+                loadApplyDialog(row, comment, isEditable, isCancelable);
+            }
+        })
+    }
+
+    function constructButtonArray(row, isEditable, isCancelable) {
+        var buttonArray = [];
+        var actionButton = {
+            icon: 'glyphicon glyphicon-send',
+            label: 'Apply',
+            cssClass: 'btn-primary',
+            action: function(dialogRef){
+                enableDialog(dialogRef, false);
+                var projectId = row.projectId;
+                var applyMsg = dialogRef.getModalBody().find('textarea').val();
+                applyPrject(dialogRef, projectId, applyMsg);
+
+            }
+        };
+        var cancelButton = {
+            label: 'Cancel Apply',
+            action: function(dialogRef){
+                cancelProjectApplication(dialogRef, row.projectId)
+
+            }
+        }
+        var closeButton =  {
+            label: 'Close',
+            action: function(dialogRef){
+                dialogRef.close();
+            }
+        };
+        if (isEditable) {
+            buttonArray.push(actionButton);
+        }
+        if (isEditable && isCancelable) {
+            buttonArray.push(cancelButton);
+        }
+        buttonArray.push(closeButton);
+        return buttonArray;
+    }
+
+    function cancelProjectApplication(dialogRef, projectId) {
+        $.ajax({
+            type: "GET",
+            url: "/project-application/cancel/projects/" + projectId,
+            error: function(data){
+                enableDialog(dialogRef, true);
+                alert("Can't cancel, please refresh page");
+            },
+            success: function(data){
+                alert("Cancel successfully ");
+                dialogRef.close();
+            }
+        })
+    }
+
+    function loadApplyDialog(row, comment, isEditable, isCancelable) {
+        BootstrapDialog.show({
+            title: 'Apply Dialog',
+            message: '<textarea class="form-control" placeholder="Try to input apply message here..."></textarea>',
+            onshow: function(dialogRef) {
+                if (!isEditable) {
+                    dialogRef.getModalBody().find('textarea').attr("readonly",true);
+                }
+                dialogRef.getModalBody().find('textarea').val(comment);
+            },
+            buttons: constructButtonArray(row, isEditable, isCancelable)
+        });
+    }
+
+    function showDialog(row, comment) {
+        BootstrapDialog.show({
+            title: 'Notice dialog',
+            message: comment,
+            onshow: function(dialogRef) {
+
+                dialogRef.getModalBody().find('textarea').val(comment);
+            },
+            buttons: refreshButton()
+        });
+    }
+
+    function refreshButton() {
+        var buttonArray = [];
+        var okButton =  {
+            label: 'OK',
+            action: function(dialogRef){
+                dialogRef.close();
+                location.reload();
+            }
+        };
+
+        buttonArray.push(okButton);
+        return buttonArray;
+    }
+
+    function enableDialog(dialogRef, isEnhable) {
+        dialogRef.enableButtons(isEnhable);
+        dialogRef.setClosable(isEnhable);
+    }
+
+    function applyPrject(dialogRef, projectId, comment) {
+        $.ajax({
+            type: "POST",
+            url: "/project-application/apply/projects/" + projectId,
+            data: {'comment': comment},
+            error: function(data){
+                enableDialog(dialogRef, true);
+                alert("Error");
+            },
+            success: function(data){
+                alert("Apply successfully ");
+                dialogRef.close();
+            }
+        })
+    }
+</script>
+{{/partial}}
+{{> project/edit_menu }}

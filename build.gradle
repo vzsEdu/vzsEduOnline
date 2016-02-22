@@ -1,0 +1,14 @@
+apply plugin: 'java'
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.googlecode.flyway:flyway-gradle-plugin:2.2.1'
+        classpath 'io.github.divinespear:jpa-schema-gradle-plugin:0.1.4'
+    }
+}
+task wrap(type: Wrapper) {
+    gradleVersion='1.8'
+    scriptFile='g'
+}

@@ -1,0 +1,1 @@
+ALTER TABLE `civil`.`users` ADD COLUMN `email_verified` INT(1) DEFAULT 0 NOT NULL COMMENT 'is email verified';

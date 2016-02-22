@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <comment>used for develop/default env </comment>
+    <entry key="civil.mysql.jdbc.url">jdbc:mysql://localhost:3306/civil?useUnicode=true&amp;characterEncoding=UTF8&amp;autoReconnect=true&amp;roundRobinLoadBalance=true&amp;connectTimeout=5000&amp;socketTimeout=6000</entry>
+    <entry key="civil.mysql.jdbc.username">byao</entry>
+    <entry key="civil.mysql.jdbc.password">welcome2civilworld</entry>
+    <entry key="civil.mysql.jdbc.partitionCount">1</entry>
+    <entry key="civil.mysql.jdbc.maxConnectionsPerPartition">10</entry>
+    <entry key="civil.mysql.jdbc.minConnectionsPerPartition">1</entry>
+    <entry key="civil.mysql.jdbc.connectionTimeOutInMinutes">0</entry>
+    <entry key="civil.mysql.jdbc.statisticsEnabled">true</entry>
+
+    <entry key="civil.mysql.jdbc.idleConnectionTestPeriodInMinutes">1</entry>
+    <entry key="civil.mysql.jdbc.idleMaxAgeInMinutes">1</entry>
+    <entry key="civil.mysql.jdbc.logStatementEnabled">true</entry>
+
+    <entry key="locale.default">zh_CN</entry>
+
+    <entry key="mail.address">civil_engineer_web@163.com</entry>
+    <entry key="mail.user">civil_engineer_web</entry>
+    <entry key="mail.password">ehhixtiswqekivmh</entry>
+    <entry key="mail.host">smtp.163.com</entry>
+    <entry key="mail.smtp.port">25</entry>
+    <entry key="mail.smtp.auth">true</entry>
+    <entry key="mail.smtp.timeout">2500</entry>
+
+    <entry key="qq.no">1073118806</entry>
+    <entry key="qq.password">welcome2civil</entry>
+
+    <entry key="qiniu.image.cdn">http://7xjjor.com1.z0.glb.clouddn.com/</entry>
+
+    <entry key="qiniu.userName">vzs97@sina.com</entry>
+    <entry key="qiniu.pwd">welcome2civil</entry>
+    <entry key="qiniu.ak">BZThYanlmS2nwx1Po8Ip6_v9R8ZVz19GegugptwL</entry>
+    <entry key="qiniu.sk">ul1i1VJVZH36g4OQsEfX0Rsl1Y81BP0pIWIP1Ng8</entry>
+    <entry key="qiniu.bulkname.default">civil</entry>
+
+
+
+</properties>

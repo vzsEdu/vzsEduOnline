@@ -1,0 +1,38 @@
+{{#partial "core"}}
+
+    {{assetStyle "resources/css/company.css"}}
+    {{assetScript "/resources/js/lib/jquery/jquery.bootstrap.wizard.min.js"}}
+
+<table id="companyList" data-toggle="table" data-url="/company/list/other/companys" data-card-view="true"
+       data-pagination="true"
+       data-search="true"
+       data-show-toggle="true">
+    <thead>
+    <tr dbl-click-row.bs.table="alert();">
+        <th data-field="companyName">{{i18n "company.name"}}</th>
+        <th data-field="province" data-field="city">{{i18n "company.location"}}</th>
+        <th data-field="industryInvolved">{{i18n "company.industry"}}</th>
+    </tr>
+    </thead>
+</table>
+{{/partial}}
+{{#partial "script"}}
+<script type="text/javascript">
+    $().ready(function(){
+       $('#company_person_menu_company').addClass("active");
+
+        $('#companyList').bootstrapTable({
+
+        }).on('dbl-click-row.bs.table', function (e, row, $element) {
+            window.location = '/company/view/company/' + row.companyId;
+        });
+
+
+    });
+
+
+</script>
+
+{{/partial}}
+
+{{> company/company_person_menu }}

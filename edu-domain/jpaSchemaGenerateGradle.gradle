@@ -1,0 +1,24 @@
+
+
+if (project.hasProperty('persistenceUnitNames')) {
+    sourceSets {
+        main {
+            output.resourcesDir = output.classesDir
+        }
+    }
+
+    generateSchema {
+        targets {
+            persistenceUnitNames.each { unitName ->
+                "${unitName}" {
+                    persistenceUnitName = unitName
+                    scriptAction = "create"
+                    outputDirectory = file("${buildDir}/schemas")
+                    createOutputFileName = "${unitName}.sql"
+                    dialect = "org.hibernate.dialect.MySQL5InnoDBDialect"
+                    format = true
+                }
+            }
+        }
+    }
+}

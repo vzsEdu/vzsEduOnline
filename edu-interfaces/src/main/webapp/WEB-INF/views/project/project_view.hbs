@@ -1,0 +1,345 @@
+{{#partial "link"}}
+
+    <link href="../../resources/css/company.css" rel="stylesheet">
+{{/partial}}
+
+
+{{#partial "core"}}
+
+    {{assetScript "/resources/js/lib/jquery/jquery.bootstrap.wizard.min.js"}}
+    {{assetScript "/resources/js/lib/jquery/vendor/jquery.ui.widget.js"}}
+    {{assetScript "/resources/js/lib/jquery/fileinput/fileinput.min.js"}}
+    {{assetScript "/resources/js/lib/jquery/fileinput/fileinput_locale_%s.js" true }}
+
+    {{assetScript "/resources/js/lib/provincecity/jquery.cityselect.js"}}
+    {{assetScript "/resources/js/common/imagesHelper.js"}}
+
+    {{assetStyle "resources/bootstrap/css/bootstrap.min.css"}}
+    {{assetStyle "resources/js/lib/jquery/css/fileinput.min.css"}}
+
+    <form style="width: 80%" align="center" enctype="multipart/form-data" action="/project/saveProject" id="projectForm"
+          name="projectForm"
+          method="post" ng-app="projectApp"
+          ng-controller="projectCtrl">
+        <input type="hidden" name="projectId" value="{{default project.projectId}}"/>
+
+        <div class="row" style="margin-top:40px;">
+            <div class="col-md-8">
+                <img id="upload" alt="" style="width: 400px; height: 400px"
+                     src="{{qiniu project.imagePath "400" "400"}}">
+                <input type="hidden" id="imagePath" name="imagePath" value="{{default project.imagePath ''}}">
+            </div>
+        </div>
+        <div class="row" style="margin-top:40px;">
+            <div class="col-md-3"><label>{{i18n "project.upload"}}</label></div>
+            <div class="col-md-7">
+                <input type="file" id="projectFile" name="projectFile" ng-readonly="stopTheWorld" multiple>
+            </div>
+            <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-7">
+                    <div class="messages" ng-messages="projectForm.projectFile.$error"
+                         ng-hide="projectForm.projectFile.$pristine">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top:40px;">
+            <div class="col-md-3"><label> {{i18n "project.name"}}</label></div>
+            <div class="col-md-7">
+                <input type="text" name="projectName" id="projectName" class="form-control" ng-readonly="stopTheWorld"
+                       maxlength="255" ng-required="true" ng-model="project.projectName" required autofocus>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-7">
+                <div class="messages" ng-messages="projectForm.projectName.$error"
+                     ng-hide="projectForm.projectName.$pristine">
+                    <div ng-message="required">must input project name</div>
+                </div>
+            </div>
+        </div>
+        <!--province-->
+        <div class="row" style="margin-top:40px;" id="priovincesCity">
+            <div class="col-md-3"><label> {{i18n "project.location"}}</label></div>
+            <div class="col-md-3">
+                <select id="province" name="province" class="form-control prov" ng-required="true"
+                        ng-model="project.province"
+                        ng-readonly="stopTheWorld" required autofocus></select>
+            </div>
+            <div class="col-md-3">
+                <select id="city" name="city" class="form-control city" ng-required="true" ng-model="project.city"
+                        ng-readonly="stopTheWorld"
+                        required autofocus></select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-3">
+                <div class="messages" ng-messages="projectForm.province.$error"
+                     ng-hide="projectForm.province.$pristine">
+                    <div ng-message="required">must input province name</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="messages" ng-messages="projectForm.city.$error" ng-hide="projectForm.city.$pristine">
+                    <div ng-message="required">must input city name</div>
+                </div>
+            </div>
+        </div>
+        <!--industryInvolved-->
+        <div class="row" style="margin-top:40px;">
+            <div class="col-md-3"><label>{{i18n "project.industryInvolved"}}</label></div>
+            <div class="col-md-7">
+                <input type="text" name="industryInvolved" id="industryInvolved" class="form-control"
+                       ng-readonly="stopTheWorld"
+                       ng-required="true" ng-model="project.industryInvolved" required autofocus>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-7">
+                <div class="messages" ng-messages="projectForm.industryInvolved.$error"
+                     ng-hide="projectForm.industryInvolved.$pristine">
+                    <div ng-message="required">must input industryInvolved name</div>
+                </div>
+            </div>
+        </div>
+        <!--project.detail-->
+        <div class="row" style="margin-top:40px;">
+            <div class="col-md-3"><label>{{i18n "project.detail"}}</label></div>
+            <div class="col-md-7">
+                <textarea rows="3" cols="30" name="projectDetailDescription" id="projectDetailDescription"
+                          class="form-control" ng-readonly="stopTheWorld"
+                          maxlength="300" ng-required="true" ng-model="project.projectDetailDescription" required
+                          autofocus></textarea>
+                <textarea id="projectDetailDescriptionTemp" name="projectDetailDescriptionTemp"
+                          style="display: none">{{default project.projectDetailDescription ''}}</textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-7">
+                <div class="messages" ng-messages="projectForm.projectDetailDescription.$error"
+                     ng-hide="projectForm.projectDetailDescription.$pristine">
+                    <div ng-message="required">must input projectDetailDescription name</div>
+                    <div ng-message="maxlength">The password max length is 300 digits</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8"></div>
+        </div>
+
+        <!---->
+        <div class="row" style="margin-top:40px;">
+            <div class="col-md-3"><label>{{i18n "project.collaborate"}}</label></div>
+            <div class="col-md-7">
+                <input type="text" name="collaborateWay" id="collaborateWay" class="form-control"
+                       ng-readonly="stopTheWorld"
+                       ng-required="true" ng-model="project.collaborateWay" required autofocus>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-7">
+                <div class="messages" ng-messages="projectForm.collaborateWay.$error"
+                     ng-hide="projectForm.collaborateWay.$pristine">
+                    <div ng-message="required">must input collaborateWay name</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top:40px;">
+            <div class="col-md-3"><label>{{i18n "project.detail"}}</label></div>
+            <div class="col-md-7">
+                <textarea rows="3" cols="30" name="taskDetailDescription" id="taskDetailDescription"
+                          class="form-control" ng-readonly="stopTheWorld"
+                          name="projectDetailDescription" maxlength="500" ng-required="true"
+                          ng-model="project.taskDetailDescription" required
+                          autofocus></textarea>
+                <textarea id="taskDetailDescriptionTemp" name="taskDetailDescriptionTemp"
+                          style="display: none">{{default project.taskDetailDescription ''}}</textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-7">
+                <div class="messages" ng-messages="projectForm.taskDetailDescription.$error"
+                     ng-hide="projectForm.taskDetailDescription.$pristine">
+                    <div ng-message="required">must input taskDetailDescription name</div>
+                    <div ng-message="maxlength">The password max length is 500 digits</div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-8"></div>
+        </div>
+
+        <!---->
+        <div class="row" style="margin-top:40px;">
+            <div class="col-md-3"><label>{{i18n "project.deadLine"}}</label></div>
+            <div class="col-md-7">
+                <textarea rows="3" cols="30" name="deadLine" id="deadLine" class="form-control"
+                          ng-readonly="stopTheWorld"
+                          maxlength="200" ng-required="true" ng-model="project.deadLine" required
+                          autofocus></textarea>
+                <textarea id="deadLineTemp" name="deadLineTemp"
+                          style="display: none">{{default project.deadLine ''}}</textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-7">
+                <div class="messages" ng-messages="projectForm.deadLine.$error"
+                     ng-hide="projectForm.deadLine.$pristine">
+                    <div ng-message="required">must input deadLine name</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top:40px;">
+            <div class="col-md-3"><label>{{i18n "project.return"}}</label></div>
+            <div class="col-md-7">
+                <textarea rows="3" cols="30" name="profit" id="profit" class="form-control" ng-readonly="stopTheWorld"
+                          maxlength="200" ng-required="true" ng-model="project.profit" required
+                          autofocus></textarea>
+                <textarea id="profitTemp" name="profitTemp"
+                          style="display: none">{{default project.profit ''}}</textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-7">
+                <div class="messages" ng-messages="projectForm.profit.$error" ng-hide="projectForm.profit.$pristine">
+                    <div ng-message="required">must input profit name</div>
+                    <div ng-message="maxlength">The password max length is 200 digits</div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-8"></div>
+        </div>
+
+        <div class="row" style="margin-top:40px;">
+            <div class="col-md-3"><label>{{i18n "project.comment"}}</label></div>
+            <div class="col-md-7">
+                <textarea rows="3" cols="30" name="comment" id="comment" class="form-control" ng-readonly="stopTheWorld"
+                          maxlength="300" ng-required="true" ng-model="project.comment" required
+                          autofocus></textarea>
+                <textarea id="commendTemp" name="commendTemp"
+                          style="display: none">{{default project.comment ''}}</textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-7">
+                <div class="messages" ng-messages="projectForm.comment.$error" ng-hide="projectForm.comment.$pristine">
+                    <div ng-message="required">must input comment name</div>
+                    <div ng-message="maxlength">The password max length is 300 digits</div>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-top:40px;">
+            <div class="col-md-3"><label>{{i18n "project.published"}}</label></div>
+            <div class="col-md-7" align="left">
+                <input type="checkbox" name="published" id="published" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8"></div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <button class="btn btn-primary" type="submit" id="submit_btn" ng-hide="stopTheWorld"
+                        ng-disabled="projectForm.$invalid || projectForm.$pristine">
+                    {{i18n "project.save"}}
+                </button>
+            </div>
+            <div class="col-md-4">
+                <button class="btn btn-primary" type="button" onclick="cancel()">
+                    {{i18n "project.cancel"}}
+                </button>
+            </div>
+        </div>
+
+    </form>
+{{/partial}}
+{{#partial "script"}}
+
+    <script type="text/javascript">
+
+        function cancel() {
+            window.location = '/project/list/projects';
+        }
+        (function (angular, $, _) {
+            var app = angular.module("projectApp", ["app", "ngMessages"]);
+            app.controller("projectCtrl", ["$scope", function ($scope) {
+                $scope.project = {
+                    'projectName': "{{default project.projectName ''}}",
+                    'industryInvolved': "{{default project.industryInvolved ''}}",
+                    'province': "{{default project.province ''}}",
+                    'city': "{{default project.city ''}}",
+                    'projectDetailDescription': $("#projectDetailDescriptionTemp").val(),
+                    'collaborateWay': "{{default project.collaborateWay ''}}",
+                    'taskDetailDescription': $("#taskDetailDescriptionTemp").val(),
+                    'deadLine': $("#deadLineTemp").val(),
+                    'profit': $("#profitTemp").val(),
+                    'comment': $("#commendTemp").val()
+                };
+                $scope.stopTheWorld =  {{default project.readonly 'false'}};
+                $().ready(function () {
+                    $(".file-caption-name").bind("DOMSubtreeModified", function () {
+                        if (!$scope.projectForm.$invalid) {
+                            $("#submit_btn").attr("disabled", false);
+                        }
+                    });
+
+                    $("#published").bind("published", function () {
+                        if (!$scope.projectForm.$invalid) {
+                            $("#submit_btn").attr("disabled", false);
+                        }
+                    });
+
+                    $("#published").attr("checked",  {{default project.published 'false'}});
+                    $("#published").attr("disabled",  {{default project.readonly 'false'}});
+                });
+            }]);
+
+        }(window.angular, window.jQuery, window._));
+
+        $().ready(function () {
+            $("#priovincesCity").citySelect({
+                prov: "{{default project.province ''}}",
+                city: "{{default project.city ''}}",
+                nodata: "none",
+                required: false
+            });
+            $("#projectFile").fileinput({
+                showUpload: false,
+                'showPreview': true,
+                'allowedFileExtensions': ['jpg', 'png', 'gif'],
+                maxFileSize: 1000,
+                maxFilesNum: 10,
+                language: '{{jsI18n}}'
+            });
+
+            $('#create_project_li').addClass('active');
+            $('#create_project_side_li').addClass('active');
+            $("#create_project_side_div").removeClass('hidden');
+        });
+
+
+    </script>
+{{/partial}}
+{{> project/edit_menu }}

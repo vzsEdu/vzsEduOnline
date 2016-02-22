@@ -1,0 +1,148 @@
+{{#partial "core"}}
+
+    {{assetStyle "resources/css/company.css"}}
+
+<div class="row company-view-cls">
+    <form style="width: 110%"  action="/company/saveCompany" id="companyForm" name="companyForm"  method="post"  ng-app="companyApp"
+          ng-controller="companyCtrl">
+        <input type="hidden" name = "companyId" value="{{default company.companyId}}"/>
+        <input type="hidden" name = "verified" value="{{default company.verified}}"/>
+
+        <!--companyName-->
+        <div class="row placeholders" >
+            <div class="col-md-2"><label>{{i18n "company.name"}}</label></div>
+            <div class="col-md-6">{{company.companyName}}</div>
+        </div>
+        <!--industryInvolved-->
+       <div class="row placeholders">
+            <div class="col-md-2"><label>{{i18n "company.industry"}}</label></div>
+            <div class="col-md-6">{{company.industryInvolved}}</div>
+        </div>
+        <!--province-->
+       <div class="row" id="priovincesCity">
+            <div class="col-md-2"><label > {{i18n "company.location"}}</label></div>
+            <div class="col-md-6">{{company.province}}&nbsp;{{company.city}}&nbsp;{{company.dist}}</div>
+        </div>
+        <!--company.address-->
+        <div class="row" >
+            <div class="col-md-2"><label>{{i18n "company.address"}}</label></div>
+            <div class="col-md-6">{{company.address}}</div>
+        </div>
+        <!--company.contactor-->
+        <div class="row">
+            <div class="col-md-2"><label>{{i18n "contactor"}}</label></div>
+            <div class="col-md-6">{{company.contactor}}</div>
+        </div>
+        <!--company.contactNo-->
+        <div class="row">
+            <div class="col-md-2"><label>{{i18n "contact.number"}}</label></div>
+            <div class="col-md-6">{{company.contactNo}}</div>
+        </div>
+        <!--company.email-->
+        <div class="row">
+            <div class="col-md-2"><label>{{i18n "company.email"}}</label></div>
+            <div class="col-md-6">{{company.email}}</div>
+        </div>
+        <!--company.fax-->
+        <div class="row">
+            <div class="col-md-2"><label>{{i18n "fax"}}</label></div>
+            <div class="col-md-6">{{company.fax}}</div>
+        </div>
+
+        <!--company.qualification-->
+     <div class="row">
+            <div class="col-md-2"><label>{{i18n "qualification.fillup"}}</label></div>
+            <div class="col-md-6"><p>{{company.qualification}}</p>
+<!--                <textarea rows="3" cols="30" name="qualification" id="qualification" class="form-control"
+                          maxlength="500" ng-required="true" ng-model="company.qualification" required
+                          autofocus readonly></textarea>-->
+                <!--<textarea id="qualificationTemp" name="qualificationTemp" style="display: none">{{default company.qualification ''}}</textarea>-->
+            </div>
+        </div>
+
+        <!--company.selfIntroduction-->
+        <div class="row">
+            <div class="col-md-2"><label>{{i18n "self.introduction"}}</label></div>
+            <div class="col-md-6"><p>{{company.selfIntroduction}}</p>
+               <!-- <textarea rows="3" cols="30" name="selfIntroduction" id="selfIntroduction" class="form-control"
+                          maxlength="500" ng-required="true" ng-model="company.selfIntroduction" required
+                          autofocus readonly></textarea>-->
+                <!--<textarea id="selfIntroductionTemp" name="selfIntroductionTemp" style="display: none">{{default company.selfIntroduction ''}}</textarea>-->
+            </div>
+        </div>
+
+        <!--company.technicalSupport-->
+        <div class="row">
+            <div class="col-md-2"><label>{{i18n "technical.support"}}</label></div>
+            <div class="col-md-6"><p>{{company.technicalSupport}}</p>
+            </div>
+        </div>
+
+        <!--company.projectHistory-->
+        <table id="projectHistoryListReadonly" data-toggle="table" data-url="/company/projectHistory/list/projectHistorysByCompany/{{company.companyId}}"
+               data-card-view="true">
+            <thead>
+            <tr>
+                <th data-field="projectName"><label>{{i18n "project.name"}}</label></th>
+                <th data-field="description"><label>{{i18n "project.detail"}}</label></th>
+                <th data-field="imagePath"  data-formatter="imageFormatter"></th>
+            </tr>
+            </thead>
+        </table>
+
+        <!--button-->
+        <div class="row">
+            <div class="col-md-10"></div>
+            <div class="col-md-1">
+                <button class="btn btn-primary" type="button" onclick="cancel()">
+                    {{i18n "button.return"}}
+                </button>
+            </div>
+        </div>
+
+    </form>
+</div>
+{{/partial}}
+{{#partial "script"}}
+    <script type="text/javascript">
+
+
+        function cancel() {
+            window.location = '/company/list/companys';
+        }
+        (function (angular, $, _) {
+            var app = angular.module("companyApp", ["app","ngMessages"]);
+
+            app.controller("companyCtrl", ["$scope", function ($scope) {
+                $scope.company = {  'companyName':"{{default company.companyName ''}}",
+                                    'industryInvolved':"{{default company.industryInvolved ''}}",
+                                    'province':"{{default company.province ''}}",
+                                    'city':"{{default company.city ''}}",
+                                    'dist':"{{default company.dist ''}}",
+                                    'address':"{{default company.address ''}}",
+                                    'email':"{{default company.email ''}}",
+                                    'contactor':"{{default company.contactor ''}}",
+                                    'contactNo':"{{default company.contactNo ''}}",
+                                    'fax':"{{default company.fax ''}}",
+                                    'qualification':$("#qualificationTemp").val(),
+                                    'selfIntroduction':$("#selfIntroductionTemp").val(),
+                                    'technicalSupport':$("#technicalSupportTemp").val(),
+                                    'verified':"{{default company.verified ''}}"
+                                };
+
+
+            }]);
+        }(window.angular, window.jQuery, window._));
+
+        $().ready(function () {
+            $('#company_person_menu_company').addClass("active");
+        });
+
+
+        function imageFormatter(value, row, index) {
+            return '<img id="projectHistoryImg" alt="" style="width: 400px; height: 400px" src="http://7xjjor.com1.z0.glb.clouddn.com/' + value +'?imageView2/1/w/400/h/400">';
+        }
+    </script>
+{{/partial}}
+
+{{> company/company_person_menu }}

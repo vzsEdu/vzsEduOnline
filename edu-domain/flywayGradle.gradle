@@ -1,0 +1,44 @@
+/*
+depends on "flyway" plugin
+
+apply from: flywayGradle
+ */
+
+
+sourceSets {
+    main {
+        java {
+            srcDir "src/migration/java"
+        }
+    }
+}
+
+dependencies {
+    compile "com.googlecode.flyway:flyway-core:2.2.1"
+}
+
+// command line example:
+// gradlew :shared:flywayMigrate --stacktrace -Pprofile.flyway=develop
+// migration sql file name : src/migration/sql/V1__{자유로운 기술}.sql
+// migration java file name : src/migration/java/V2_{자유로운 기술}.java
+
+def properties = new Properties()
+
+if (project.hasProperty('profile.flyway')) {
+    def profileFlyway = project.property('profile.flyway')
+
+    File migrationProperties = file("src/migration/flyway-${profileFlyway}.properties");
+    if (migrationProperties.exists()) {
+        migrationProperties.withReader { reader ->
+            properties.load(reader)
+            properties.each { key, value ->
+                project.ext[key] = value
+            }
+        }
+        String sqlPath = file('src/migration/sql').absolutePath
+        logger.info("Flyway SQL Path : ${sqlPath}")
+        project.ext['flyway.locations'] = "filesystem:${sqlPath},classpath:./"
+    }
+}
+
+flywayMigrate.dependsOn compileJava

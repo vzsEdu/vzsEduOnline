@@ -1,0 +1,55 @@
+{{#partial "core"}}
+
+    <!--{{assetScript "/resources/bootstrap/table/bootstrap-table.js"}}-->
+    <!--{{assetScript "/resources/js/lib/jquery/jquery.bootstrap.wizard.min.js"}}-->
+    <!--{{assetScript "/resources/bootstrap/dialog/js/bootstrap-dialog.min.js"}}-->
+
+    <!--{{assetStyle "resources/bootstrap/dialog/css/bootstrap-dialog.min.css"}}-->
+    <!--{{assetStyle "resources/bootstrap/table/bootstrap-table.css"}}-->
+
+
+    <h1 align="center" id="pageHeaderTitle">Default</h1>
+
+    <table id="projectList" data-toggle="table" data-url="/application-center/data/lists?applicationCenterFunctionEnmu={{default applicationCenterFunctionEnmu ''}}"
+           data-card-view="true"
+           data-pagination="true"
+           data-search="true"
+           data-show-toggle="true" data-select-item-name="toolbar1">
+        <thead>
+        <tr>
+            <th data-field="softwareName">{{i18n "application.center.title.software.name"}}</th>
+            <th data-field="softwareDescription" >{{i18n "application.center.title.software.description"}}</th>
+            <th data-field="contactWay" >{{i18n "application.center.title.cotactway"}}</th>
+        </tr>
+        </thead>
+    </table>
+{{/partial}}
+{{#partial "script"}}
+    <script type="text/javascript">
+        $().ready(function(){
+
+            var headTitle = "";
+            $('#app_center_li').addClass('active');
+            if ("{{default applicationCenterFunctionEnmu ''}}" == "OWN_APPLICATION") {
+                headTitle = '{{i18n "applciation.center.my.application.title"}}';
+                $('#mycenter_my_app_menu').addClass('active');
+
+            } else if ("{{default applicationCenterFunctionEnmu ''}}" == "OTHERS_APPLICATION") {
+                headTitle = '{{i18n "applciation.center.others.application.title"}}';
+
+                $('#mycenter_app_menu').addClass('active');
+
+            }
+            $("#pageHeaderTitle").html(headTitle);
+
+
+            $('#projectList').bootstrapTable({
+
+            }).on('dbl-click-row.bs.table', function (e, row, $element) {
+                window.location = '/application-center/view/application/' + row.applicationCenterId;
+            });
+
+        });
+    </script>
+{{/partial}}
+{{> applicationCenter/edit_menu }}

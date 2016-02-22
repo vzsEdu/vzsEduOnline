@@ -1,0 +1,60 @@
+{{#partial "core"}}
+
+
+    {{assetStyle "resources/js/lib/jquery/css/fileinput.min.css"}}
+    {{assetStyle "resources/css/person.css"}}
+
+    {{assetScript "/resources/js/lib/jquery/vendor/jquery.ui.widget.js"}}
+    {{assetScript "/resources/js/lib/jquery/fileinput/fileinput.min.js"}}
+    <table id="personBlackboardList" data-toggle="table" data-url="/person/blackboard/list/my/personBlackboards"
+           data-card-view="true">
+        <thead>
+        <tr dbl-click-row.bs.table="alert();">
+            <th data-field="blackboard">{{i18n "blackboard"}}</th>
+            <th data-field="operate" data-formatter="operateFormatter" data-events="operateEvents">{{i18n "project.operate"}}</th>
+        </tr>
+        </thead>
+    </table>
+    <form action="/person/blackboard/create/personBlackboard" method="get">
+        <div>
+            <button class="btn btn-primary" type="submit" id="create_btn">
+                {{i18n "create"}}+
+            </button>
+        </div>
+    </form>
+{{/partial}}
+{{#partial "script"}}
+    <script type="text/javascript">
+        $().ready(function () {
+            $('#personBlackboardList').bootstrapTable({}).on('dbl-click-row.bs.table', function (e, row, $element) {
+                window.location = '/person/blackboard/view/personBlackboard/' + row.personBlackboardId;
+            });
+            $('#mycenter_person_blackboard_menu').addClass("active");
+
+        });
+
+
+        function operateFormatter(value, row, index) {
+            return [
+                '<a class="edit ml10" href="javascript:void(0)" title="Edit">',
+                '<i class="glyphicon glyphicon-edit"></i>',
+                '</a>&nbsp',
+                '<a class="remove ml10" href="javascript:void(0)" title="Remove">',
+                '<i class="glyphicon glyphicon-remove"></i>',
+                '</a>&nbsp',
+            ].join('');
+        }
+
+        window.operateEvents = {
+            'click .edit': function (e, value, row, index) {
+                window.location = '/person/blackboard/view/personBlackboard/' + row.personBlackboardId;
+            },
+            'click .remove': function (e, value, row, index) {
+                window.location = '/person/blackboard/remove/personBlackboard/' + row.personBlackboardId;
+            }
+        };
+
+    </script>
+{{/partial}}
+
+{{> person/edit_menu }}
