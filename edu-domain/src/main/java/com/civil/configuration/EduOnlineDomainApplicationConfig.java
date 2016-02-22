@@ -25,7 +25,7 @@ import java.util.concurrent.Executor;
 @ComponentScan(basePackageClasses = {CivilDomain.class})
 public class EduOnlineDomainApplicationConfig implements TransactionManagementConfigurer, AsyncConfigurer {
 
-    @Qualifier("civilTransactionManager")
+    @Qualifier("eduOnlineTransactionManager")
     @Autowired
     private PlatformTransactionManager transactionManager;
 
@@ -35,7 +35,7 @@ public class EduOnlineDomainApplicationConfig implements TransactionManagementCo
         executor.setCorePoolSize(32);
         executor.setMaxPoolSize(128);
         executor.setQueueCapacity(1024);
-        executor.setThreadNamePrefix("CivilExecutor-");
+        executor.setThreadNamePrefix("EduOnlineExecutor-");
         executor.initialize();
         return executor;
     }

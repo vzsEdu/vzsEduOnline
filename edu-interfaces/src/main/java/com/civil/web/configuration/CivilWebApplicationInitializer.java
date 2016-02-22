@@ -1,7 +1,6 @@
 package com.civil.web.configuration;
 
-import com.civil.configuration.CivilDomainApplicationConfig;
-import com.civil.configuration.CivilJpaRepositoryConfig;
+import com.civil.configuration.EduOnlineDomainApplicationConfig;
 import com.vzs.mvc.configuration.AbstractVzsWebApplicationInitializer;
 
 import javax.servlet.ServletContext;
@@ -14,7 +13,7 @@ public class CivilWebApplicationInitializer extends AbstractVzsWebApplicationIni
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
         loadLogbackConfigListener(servletContext);
-        loadRootApplicationContext(servletContext, CivilDomainApplicationConfig.class);
+        loadRootApplicationContext(servletContext, EduOnlineDomainApplicationConfig.class);
         loadDefaultFilters(servletContext);
         addDispatcherServlet(servletContext, "webServlet", CivilWebServletApplicationContextConfig.class, "/");
     }

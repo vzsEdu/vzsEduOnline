@@ -2,18 +2,18 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
     <comment>used for develop/default env </comment>
-    <entry key="civil.mysql.jdbc.url">jdbc:mysql://localhost:3306/civil?useUnicode=true&amp;characterEncoding=UTF8&amp;autoReconnect=true&amp;roundRobinLoadBalance=true&amp;connectTimeout=5000&amp;socketTimeout=6000</entry>
-    <entry key="civil.mysql.jdbc.username">byao</entry>
-    <entry key="civil.mysql.jdbc.password">welcome2civilworld</entry>
-    <entry key="civil.mysql.jdbc.partitionCount">1</entry>
-    <entry key="civil.mysql.jdbc.maxConnectionsPerPartition">10</entry>
-    <entry key="civil.mysql.jdbc.minConnectionsPerPartition">1</entry>
-    <entry key="civil.mysql.jdbc.connectionTimeOutInMinutes">0</entry>
-    <entry key="civil.mysql.jdbc.statisticsEnabled">true</entry>
+    <entry key="edu.online.mysql.jdbc.url">jdbc:mysql://localhost:3306/eduOnline?useUnicode=true&amp;characterEncoding=UTF8&amp;autoReconnect=true&amp;roundRobinLoadBalance=true&amp;connectTimeout=5000&amp;socketTimeout=6000</entry>
+    <entry key="edu.online.mysql.jdbc.username">eduAdmin</entry>
+    <entry key="edu.online.mysql.jdbc.password">welcome2eduOnlineworld</entry>
+    <entry key="edu.online.mysql.jdbc.partitionCount">1</entry>
+    <entry key="edu.online.mysql.jdbc.maxConnectionsPerPartition">10</entry>
+    <entry key="edu.online.mysql.jdbc.minConnectionsPerPartition">1</entry>
+    <entry key="edu.online.mysql.jdbc.connectionTimeOutInMinutes">0</entry>
+    <entry key="edu.online.mysql.jdbc.statisticsEnabled">true</entry>
 
-    <entry key="civil.mysql.jdbc.idleConnectionTestPeriodInMinutes">1</entry>
-    <entry key="civil.mysql.jdbc.idleMaxAgeInMinutes">1</entry>
-    <entry key="civil.mysql.jdbc.logStatementEnabled">true</entry>
+    <entry key="edu.online.mysql.jdbc.idleConnectionTestPeriodInMinutes">1</entry>
+    <entry key="edu.online.mysql.jdbc.idleMaxAgeInMinutes">1</entry>
+    <entry key="edu.online.mysql.jdbc.logStatementEnabled">true</entry>
 
     <entry key="locale.default">zh_CN</entry>
 

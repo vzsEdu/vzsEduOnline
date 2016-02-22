@@ -25,9 +25,9 @@ import javax.sql.DataSource;
 @EnableJpaRepositories(basePackageClasses = { CivilDomain.class } ,
         entityManagerFactoryRef = "entityManagerFactory",
         repositoryFactoryBeanClass = VzsJpaRepositoryFactoryBean.class,
-        transactionManagerRef = "civilTransactionManager")
+        transactionManagerRef = "eduOnlineTransactionManager")
 public class CivilJpaRepositoryConfig {
-    public static final String PRODUCT_JDBC_PROPERTIES_PREFIX = "civil.mysql.jdbc";
+    public static final String PRODUCT_JDBC_PROPERTIES_PREFIX = "edu.online.mysql.jdbc";
 
     @Autowired
     private Environment environment;
@@ -55,7 +55,7 @@ public class CivilJpaRepositoryConfig {
         return factoryBean;
     }
 
-    @Bean(name = "civilTransactionManager")
+    @Bean(name = "eduOnlineTransactionManager")
     public PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
         JpaTransactionManager transactionManager = new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(entityManagerFactory);
