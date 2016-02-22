@@ -37,5 +37,13 @@ public class HelloControler {
         return mav;
     }
 
+    @RequestMapping("/hello/save")
+    public ModelAndView hellosave(@RequestParam String readingContext) {
+        ModelAndView mav = new ModelAndView("hello");
+        String context = readingContext.replaceAll("\\$space\\$", " <input type=\"text\" class=\"dac-header-search-input\"/>");
+        context = context.replaceAll("\r\n", "<p/>");
+        mav.addObject("readingReal", context);
+        return mav;
+    }
 
 }
