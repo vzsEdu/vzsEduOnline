@@ -1,0 +1,167 @@
+{{#partial "title"}}
+    Civil
+{{/partial}}
+{{#partial "includeResources"}}
+    {{assetScript "/resources/js/lib/jquery/jquery-1.9.1.min.js"}}
+    {{assetStyle "resources/exam/exam_base.css"}}
+
+{{/partial}}
+{{#partial "style"}}
+    <style type="text/css">
+        .center {
+            margin: auto;
+            width: 90%;
+            border: 3px solid #73AD21;
+            padding: 10px;
+        }
+
+        .nav-wrapper-fixed {
+            position: fixed;
+            top: 0;
+            width: 100%;
+        }
+
+        .nav-wrapper-fixed .nav {
+            width: 960px;
+            margin: 0 auto;
+            border: 3px;
+        }
+
+        .nav-wrapper {
+            margin-top: 50px;
+            width: 100%;
+        }
+
+        .nav-wrapper .nav {
+            width: 960px;
+            margin: 0 auto;
+            border: 3px;
+        }
+
+
+        .btn {
+            background: #3498db;
+            background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
+            background-image: -moz-linear-gradient(top, #3498db, #2980b9);
+            background-image: -ms-linear-gradient(top, #3498db, #2980b9);
+            background-image: -o-linear-gradient(top, #3498db, #2980b9);
+            background-image: linear-gradient(to bottom, #3498db, #2980b9);
+            -webkit-border-radius: 28;
+            -moz-border-radius: 28;
+            border-radius: 28px;
+            font-family: Arial;
+            color: #ffffff;
+            font-size: 20px;
+            // padding: 10px 20px 10px 20px;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background: #3cb0fd;
+            background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+            background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+            background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+            background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+            background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+            text-decoration: none;
+        }
+
+    </style>
+{{/partial}}
+{{#partial "body"}}
+
+    <!--when page don't need scroll-->
+    <div class="nav-wrapper">
+        <div class="nav" id="nav">
+
+        </div>
+    </div>
+    <!--when page need scroll-->
+    <div class="nav-wrapper-fixed" id="navFixed" style="display:none;">
+        <div class="nav" id="nav2">
+        </div>
+    </div>
+
+    <!--float buttons-->
+    <div id="controlButton" style="display: none">
+        <span><input class="btn" type="button" value="add option" onclick="javascript:addOption()"/></span>
+    </div>
+
+    <!--the html model for option question-->
+    <div id="modelOption" style="display: none">
+
+        <div>&nbsp;</div>
+            <textarea name="optionQuestion" placeholder="input your question, use $space$ for the answer place" style="height: 150px; width:
+            100%"></textarea>
+        <div>OptionA : <input type="text" name="answerA"/> </div>
+        <div>OptionB : <input type="text" name="answerB"/> </div>
+        <div>OptionC : <input type="text" name="answerC"/> </div>
+        <div>OptionD : <input type="text" name="answerD"/> </div>
+        <div>OptionE : <input type="text" name="answerE"/> </div>
+        <div>OptionF : <input type="text" name="answerF"/> </div>
+    </div>
+
+    <div>&nbsp;</div>
+    <!--main function-->
+    <form style="width: 100%" action="" id="personForm" name="personForm" method="post">
+        <div class = "center" id="examBody">
+            <div style="width: 100%" align="center">Exam Title :
+                <input type="text" size="90" id="examTitle" name="examTitle" placeholder="exam title like: 2015 xxx school "/>
+            </div>
+        </div>
+    </form>
+
+
+    <div>&nbsp;</div>
+    <div style="margin: auto;width: 90%;">
+        <input class="btn" type="button" value="save exam" onclick="javascript:saveExam()"/>
+    </div>
+
+
+{{/partial}}
+{{#partial "script"}}
+    <script type="text/javascript">
+        function saveExam() {
+            $('#personForm').attr("action", "/exam/create/save-exam");
+            $('#personForm').submit();
+        }
+
+        function addOption() {
+            var examBodyVar=document.getElementById("examBody");
+            var optionHiddeVar=document.getElementById("modelOption");
+            var cloned=optionHiddeVar.cloneNode(true);
+            cloned.style.display = 'block';
+            examBodyVar.appendChild(cloned);
+        }
+
+        function addControllButton() {
+            var button=document.getElementById("controlButton");
+            var nav1 = document.getElementById("nav");
+            var nav2 = document.getElementById("nav2");
+            var clonedButton = button.cloneNode(true);
+            clonedButton.style.display = 'block';
+            var clonedButton1 = button.cloneNode(true);
+            clonedButton1.style.display = 'block';
+            nav2.appendChild(clonedButton1);
+            nav1.appendChild(clonedButton);
+
+        }
+
+        window.onload = function () {
+            addControllButton();
+            var nav = document.getElementById('nav');
+            var navFixed = document.getElementById('navFixed');
+            window.onscroll = function () {
+                var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+                document.title = scrollTop
+                if (scrollTop > nav.offsetTop) {
+                    navFixed.style.display = 'block';
+                } else if (scrollTop < nav.offsetTop) {
+                    navFixed.style.display = 'none';
+                }
+            }
+        };
+
+    </script>
+{{/partial}}
+{{> layouts/default/include/base_layout }}

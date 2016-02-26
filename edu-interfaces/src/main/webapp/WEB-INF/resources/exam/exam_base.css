@@ -1,0 +1,27 @@
+input[type=text] {
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #cccccc;
+    border-radius: 0;
+//box-sizing: border-box;
+    color: #2f2f2f;
+    font-size: 14px;
+    height: 24px;
+    outline: none;
+    text-align: center;
+    padding: 4px 20px 4px 0;
+//            width: 100%;
+// z-index: 1500;
+}
+
+table{
+    border-collapse: collapse;
+    border: 1px solid black;
+}
+table td{
+    border: 0px solid black;
+}
+
+body,textarea,input {
+    font-size: 14px;
+}
