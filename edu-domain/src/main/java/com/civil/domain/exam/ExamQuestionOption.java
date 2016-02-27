@@ -53,7 +53,6 @@ public class ExamQuestionOption {
 	@Column(name = "answer")
 	private String answer;
 
-
 	public boolean isValid() {
 		return VzsStringUtils.isNoneEmpty(question) && VzsStringUtils.isNoneEmpty(optionA);
 	}
