@@ -1,5 +1,6 @@
 package com.civil.domain.exam;
 
+import com.vzs.utils.VzsStringUtils;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -20,7 +21,7 @@ public class ExamQuestionOption {
 	private Long examQuestionOptionId;
 
 	@Column(name = "exam_id")
-	private Long exam_id;
+	private Long examId;
 
 	@Column(name = "squenceId")
 	private Long sequenceId;
@@ -51,4 +52,9 @@ public class ExamQuestionOption {
 
 	@Column(name = "answer")
 	private String answer;
+
+
+	public boolean isValid() {
+		return VzsStringUtils.isNoneEmpty(question) && VzsStringUtils.isNoneEmpty(optionA);
+	}
 }

@@ -1,5 +1,5 @@
 {{#partial "title"}}
-    Civil
+    create exam paper
 {{/partial}}
 {{#partial "includeResources"}}
     {{assetScript "/resources/js/lib/jquery/jquery-1.9.1.min.js"}}
@@ -37,7 +37,6 @@
             margin: 0 auto;
             border: 3px;
         }
-
 
         .btn {
             background: #3498db;
@@ -91,6 +90,7 @@
     <div id="modelOption" style="display: none">
 
         <div>&nbsp;</div>
+        <input type="hidden" name="optionId" value=""/>
             <textarea name="optionQuestion" placeholder="input your question, use $space$ for the answer place" style="height: 150px; width:
             100%"></textarea>
         <div>OptionA : <input type="text" name="answerA"/> </div>
@@ -107,6 +107,7 @@
         <div class = "center" id="examBody">
             <div style="width: 100%" align="center">Exam Title :
                 <input type="text" size="90" id="examTitle" name="examTitle" placeholder="exam title like: 2015 xxx school "/>
+                <input type="hidden" id="examId" value=""/>
             </div>
         </div>
     </form>

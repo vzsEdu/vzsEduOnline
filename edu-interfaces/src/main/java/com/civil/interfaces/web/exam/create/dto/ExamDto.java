@@ -9,7 +9,9 @@ import java.util.List;
  */
 @Data
 public class ExamDto {
+	private Long examId;
 	private String examTitle;
+	private List<Long> optionId;
 	private List<String> optionQuestion;
 	private List<String> answerA;
 	private List<String> answerB;

@@ -12,5 +12,15 @@ public class ExamQuestionOptionService {
 	@Autowired
 	private ExamQuestionOptionRepository examQuestionOptionRepository;
 
+	public ExamQuestionOption findById(Long examQuestoinOptionid) {
+		if (examQuestoinOptionid == null) {
+			return null;
+		}
+		return examQuestionOptionRepository.findOne(examQuestoinOptionid);
+	}
+
+	public ExamQuestionOption save(ExamQuestionOption examQuestionOption) {
+		return examQuestionOptionRepository.save(examQuestionOption);
+	}
 
 }

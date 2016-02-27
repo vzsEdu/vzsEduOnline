@@ -15,5 +15,12 @@ public class ExamService {
 		return examRepository.save(exam);
 	}
 
+	public Exam findById(Long examId) {
+		if (examId == null) {
+			return null;
+		}
+		return examRepository.findOne(examId);
+	}
+
 
 }

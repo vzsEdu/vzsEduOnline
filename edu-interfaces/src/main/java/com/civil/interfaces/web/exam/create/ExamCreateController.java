@@ -1,6 +1,7 @@
 package com.civil.interfaces.web.exam.create;
 
 import com.civil.interfaces.web.exam.create.dto.ExamDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +15,9 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping(value = "/exam/create")
 public class ExamCreateController {
 
+	@Autowired
+	private ExamModifyProvider examModifyProvider;
+
 	@RequestMapping(value = "/new-exam")
 	public ModelAndView createNewExam() {
 		ModelAndView mav = new ModelAndView("/exam/create/createExamPaper");
@@ -23,6 +27,7 @@ public class ExamCreateController {
 	@ResponseBody
 	@RequestMapping(value = "/save-exam")
 	public ExamDto saveNewExam(@ModelAttribute ExamDto examDto) {
+		examModifyProvider.saveExam(examDto);
 		return examDto;
 	}
 }
