@@ -1,0 +1,72 @@
+{{#partial "title"}}
+    create exam paper
+{{/partial}}
+{{#partial "includeResources"}}
+    {{assetScript "/resources/js/lib/jquery/jquery-1.9.1.min.js"}}
+    {{assetStyle "resources/exam/exam_base.css"}}
+
+{{/partial}}
+{{#partial "style"}}
+    <style type="text/css">
+        .center {
+            margin: auto;
+            width: 90%;
+            border: 1px solid #73AD21;
+            padding: 10px;
+        }
+
+        .left {
+            float:left
+        }
+    </style>
+{{/partial}}
+{{#partial "body"}}
+
+    <div>&nbsp;</div>
+    <!--main function-->
+    <form style="width: 100%" action="" id="personForm" name="personForm" method="post">
+        <div class = "center" id="examBody">
+            <div style="width: 100%" align="center">Exam Title :
+                <input type="text" size="90" id="examTitle" name="examTitle" value="{{examDisplayDto.examTitle}}"/>
+                <input type="hidden" id="examId" value=""/>
+                {{#each examDisplayDto.examDisplayOptionDtos}}
+                    <div>&nbsp;</div>
+                    <div>&nbsp;</div>
+                <div class="left">
+                    <table>
+                        <tr>
+                            <td>
+                                {{#each options}}
+                                    {{{this}}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                {{/each}}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                    <div>&nbsp;</div>
+                    <div>&nbsp;</div>
+                    <div class="left">
+                        {{questionSeq}} : {{{question}}}
+                    </div>
+                    <div>&nbsp;</div>
+                {{/each}}
+            </div>
+        </div>
+    </form>
+
+
+    <div>&nbsp;</div>
+    <div style="margin: auto;width: 90%;">
+        <input class="btn" type="button" value="save exam" onclick="javascript:calcAndSaveExam()"/>
+    </div>
+
+
+{{/partial}}
+{{#partial "script"}}
+    <script type="text/javascript">
+        function calcAndSaveExam() {
+
+        }
+    </script>
+{{/partial}}
+{{> layouts/default/include/base_layout }}

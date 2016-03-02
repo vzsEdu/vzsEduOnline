@@ -20,6 +20,7 @@ table{
 }
 table td{
     border: 0px solid black;
+    font-size: 14px;
 }
 
 body,textarea,input {

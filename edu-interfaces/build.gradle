@@ -7,7 +7,7 @@ task wrap(type: Wrapper) {
 repositories {
     mavenCentral()
     maven {
-        url 'https://raw.github.com/vzs97/vzs-infratructure/master/release/'
+        url 'https://raw.github.com/vzs97/vzs-infratructure/eduOnline/eduOnline/'
     }
 }
 

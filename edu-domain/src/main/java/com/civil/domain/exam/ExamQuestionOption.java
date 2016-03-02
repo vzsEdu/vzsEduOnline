@@ -1,10 +1,13 @@
 package com.civil.domain.exam;
 
+import com.google.common.collect.Lists;
+import com.vzs.utils.VzsCollectionUtils;
 import com.vzs.utils.VzsStringUtils;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by byao on 2/23/16.
@@ -55,5 +58,9 @@ public class ExamQuestionOption {
 
 	public boolean isValid() {
 		return VzsStringUtils.isNoneEmpty(question) && VzsStringUtils.isNoneEmpty(optionA);
+	}
+
+	public List<String> options() {
+		return VzsCollectionUtils.createListWithNonNullObject(optionA, optionB, optionC, optionD, optionE, optionF);
 	}
 }
