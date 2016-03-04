@@ -24,7 +24,8 @@ public class ExamDisplayOptionDto {
 
 		examDisplayOptionDto.setQuestionSeq(examDisplayContext.getQuestionSeqWithIncrease());
 
-		String decorateQestion = ExamQuestionHelper.decorateQestionForOption(examDisplayContext, examQuestionOption.getQuestion());
+		String decorateQestion = ExamQuestionHelper.decorateQestionForOption(examDisplayContext, examQuestionOption.getQuestion(),
+				examQuestionOption.getExamQuestionOptionId());
 		examDisplayOptionDto.setQuestion(decorateQestion);
 		examDisplayOptionDto.setOptions(decorateQuestion(examQuestionOption.options()));
 		examDisplayOptionDto.setQuestionId(examQuestionOption.getExamQuestionOptionId());

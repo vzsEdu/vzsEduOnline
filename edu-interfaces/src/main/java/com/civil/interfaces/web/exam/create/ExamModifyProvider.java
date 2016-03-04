@@ -30,17 +30,19 @@ public class ExamModifyProvider {
 	public void saveExam(ExamDto examDto) {
 		Exam exam = findExam(examDto);
 		List<ExamQuestionOption> examQuestionOptions = updateExamQuestionOption(exam.getExamId(), examDto);
+		examDto.setExamId(exam.getExamId()); // this line should be delete
 	}
 
 	private List<ExamQuestionOption> updateExamQuestionOption(Long examId, ExamDto examDto) {
 		List<Long> optionIds = examDto.getOptionId();
 		List<String> optionQuestions = examDto.getOptionQuestion();
-		List<String> answerAs = examDto.getAnswerA();
-		List<String> answerBs = examDto.getAnswerB();
-		List<String> answerCs = examDto.getAnswerC();
-		List<String> answerDs = examDto.getAnswerD();
-		List<String> answerEs = examDto.getAnswerE();
-		List<String> answerFs = examDto.getAnswerF();
+		List<String> optionAs = examDto.getOptionA();
+		List<String> optionBs = examDto.getOptionB();
+		List<String> optionCs = examDto.getOptionC();
+		List<String> optionDs = examDto.getOptionD();
+		List<String> optionEs = examDto.getOptionE();
+		List<String> optionFs = examDto.getOptionF();
+		List<String> answers = examDto.getAnswer();
 
 		if (VzsCollectionUtils.isEmpty(optionIds)) {
 			return Lists.newArrayList();
@@ -51,12 +53,13 @@ public class ExamModifyProvider {
 		for (int i = 0 ; i < optionIds.size() ; i++) {
 			Long optionId = optionIds.get(i);
 			String optionQuestion = optionQuestions.get(i);
-			String optionA = answerAs.get(i);
-			String optionB = answerBs.get(i);
-			String optionC = answerCs.get(i);
-			String optionD = answerDs.get(i);
-			String optionE = answerEs.get(i);
-			String optionF = answerFs.get(i);
+			String optionA = optionAs.get(i);
+			String optionB = optionBs.get(i);
+			String optionC = optionCs.get(i);
+			String optionD = optionDs.get(i);
+			String optionE = optionEs.get(i);
+			String optionF = optionFs.get(i);
+			String answer = answers.get(i);
 
 			ExamQuestionOption examQuestionOption = new ExamQuestionOption();
 			if (optionId != null) {
@@ -72,6 +75,7 @@ public class ExamModifyProvider {
 			examQuestionOption.setOptionD(optionD);
 			examQuestionOption.setOptionE(optionE);
 			examQuestionOption.setOptionF(optionF);
+			examQuestionOption.setAnswer(answer);
 
 			examQuestionOptions.add(examQuestionOption);
 			if (examQuestionOption.isValid()) {

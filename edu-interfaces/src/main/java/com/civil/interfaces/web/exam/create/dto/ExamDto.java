@@ -13,10 +13,11 @@ public class ExamDto {
 	private String examTitle;
 	private List<Long> optionId;
 	private List<String> optionQuestion;
-	private List<String> answerA;
-	private List<String> answerB;
-	private List<String> answerC;
-	private List<String> answerD;
-	private List<String> answerE;
-	private List<String> answerF;
+	private List<String> optionA;
+	private List<String> optionB;
+	private List<String> optionC;
+	private List<String> optionD;
+	private List<String> optionE;
+	private List<String> optionF;
+	private List<String> answer;
 }

@@ -9,6 +9,8 @@ public interface ExamDisplayConstant {
 	String questionHolderRegx = "\\$space\\$";
 
 	String placeHolderRegx = "\\$placeholder\\$";
+	String examIdRegx = "\\$optionQuestionId\\$";
 
-	String optionInput = "<input type=\"text\" class=\"dac-header-search-input\" placeholder = \"$placeholder$\"/>";
+	String optionInput = "<input type=\"text\" class=\"dac-header-search-input\" name=\"options\" placeholder = \"$placeholder$\"/><input " +
+			"type=\"hidden\"  name=\"optionQuestionIds\" value=\"$optionQuestionId$\" />";
 }
